@@ -3,25 +3,21 @@ package com.example.android.musicalstructureapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Jula-Kula on 23/03/2018
- */
 
 public class Song implements Parcelable {
 
     private String mArtist;
     private String mTitle;
 
-    public Song (String artist, String title) {
+    public Song(String artist, String title) {
         mArtist = artist;
         mTitle = title;
     }
 
-    protected Song(Parcel in) {
+    private Song(Parcel in) {
         mArtist = in.readString();
         mTitle = in.readString();
     }
-
 
     public static final Creator<Song> CREATOR = new Creator<Song>() {
         @Override

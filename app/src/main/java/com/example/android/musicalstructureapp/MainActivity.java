@@ -1,19 +1,12 @@
 package com.example.android.musicalstructureapp;
 
 import android.content.Intent;
-import android.graphics.Movie;
-import android.media.MediaPlayer;
-import android.support.annotation.Keep;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import junit.runner.Version;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,12 +14,15 @@ import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
+    public int sorting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ArrayList<Song> songs = new ArrayList<Song>();
+        // Create sample ArrayList of Song objects
+        final ArrayList<Song> songs = new ArrayList<>();
         songs.add(new Song("Elton John", "Rocket Man"));
         songs.add(new Song("Elton John", "Madman Across the Water"));
         songs.add(new Song("Elton John", "Goodbye Yellow Brick Road"));
@@ -120,96 +116,119 @@ public class MainActivity extends AppCompatActivity {
         TextView artist_normal = findViewById(R.id.artist_normal);
         TextView artist_reverse = findViewById(R.id.artist_reverse);
 
+        // Set onClickListeners to enable sorting the list, keep track of which kind of sorting was chosen
         title_normal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sorting = 0;
                 Collections.sort(songs, new Comparator<Song>() {
                     @Override
                     public int compare(Song o1, Song o2) {
-                        return o1.getTitle().compareTo(o2.getTitle());
+                        int comp = o1.getTitle().compareTo(o2.getTitle());
+                        if (o1.getTitle().equals(o2.getTitle())) {
+                            comp = o1.getArtist().compareTo(o2.getArtist());
+                        }
+                        return comp;
                     }
                 });
-                SongAdapter adapter = new SongAdapter(MainActivity.this, songs);
-
-                ListView listView = findViewById(R.id.list);
-
-                listView.setAdapter(adapter);
+                settingAdapter(songs);
             }
         });
 
         title_reverse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sorting = 1;
                 Collections.sort(songs, new Comparator<Song>() {
                     @Override
                     public int compare(Song o1, Song o2) {
-                        return o2.getTitle().compareTo(o1.getTitle());
+                        int comp = o2.getTitle().compareTo(o1.getTitle());
+                        if (o2.getTitle().equals(o1.getTitle())) {
+                            comp = o1.getArtist().compareTo(o2.getArtist());
+                        }
+                        return comp;
                     }
                 });
-                SongAdapter adapter = new SongAdapter(MainActivity.this, songs);
-
-                ListView listView = findViewById(R.id.list);
-
-                listView.setAdapter(adapter);
+                settingAdapter(songs);
             }
         });
 
         artist_normal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sorting = 2;
                 Collections.sort(songs, new Comparator<Song>() {
                     @Override
                     public int compare(Song o1, Song o2) {
-                        return o1.getArtist().compareTo(o2.getArtist());
+                        int comp = o1.getArtist().compareTo(o2.getArtist());
+                        if (o2.getArtist().equals(o1.getArtist())) {
+                            comp = o1.getTitle().compareTo(o2.getTitle());
+                        }
+                        return comp;
                     }
                 });
-                SongAdapter adapter = new SongAdapter(MainActivity.this, songs);
-
-                ListView listView = findViewById(R.id.list);
-
-                listView.setAdapter(adapter);
+                settingAdapter(songs);
             }
         });
 
         artist_reverse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sorting = 3;
                 Collections.sort(songs, new Comparator<Song>() {
                     @Override
                     public int compare(Song o1, Song o2) {
-                        return o2.getArtist().compareTo(o1.getArtist());
+                        int comp = o2.getArtist().compareTo(o1.getArtist());
+                        if (o2.getArtist().equals(o1.getArtist())) {
+                            comp = o1.getTitle().compareTo(o2.getTitle());
+                        }
+                        return comp;
                     }
                 });
-                SongAdapter adapter = new SongAdapter(MainActivity.this, songs);
-
-                ListView listView = findViewById(R.id.list);
-
-                listView.setAdapter(adapter);
+                settingAdapter(songs);
             }
         });
 
+        // Get the intent if there is any, to sort the list the way it was sorted before
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                if (extras.containsKey("sort")) {
+                    sorting = intent.getExtras().getInt("sort");
+                }
+            }
+        }
+
+        if (sorting == 0) {
+            title_normal.performClick();
+        } else if (sorting == 1) {
+            title_reverse.performClick();
+        } else if (sorting == 2) {
+            artist_normal.performClick();
+        } else if (sorting == 3) {
+            artist_reverse.performClick();
+        }
+    }
+
+    public void settingAdapter(final ArrayList<Song> songs) {
         SongAdapter adapter = new SongAdapter(this, songs);
-
         ListView listView = findViewById(R.id.list);
-
         listView.setAdapter(adapter);
 
+        // Set onItemClickListener to enable starting new activity, add extras to the intent
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
                 int listLength = songs.size();
-
                 Intent intent = new Intent(MainActivity.this, SongInfo.class);
                 intent.putExtra("position", position);
+                intent.putExtra("sorting", sorting);
                 intent.putExtra("listLength", listLength);
                 intent.putParcelableArrayListExtra("songs", songs);
                 startActivity(intent);
             }
         });
-
-
     }
-
 
 }

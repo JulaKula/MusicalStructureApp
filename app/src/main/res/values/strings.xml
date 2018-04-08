@@ -3,7 +3,7 @@
 
     <string name="previous"><![CDATA[<]]></string>
     <string name="next"><![CDATA[>]]></string>
-    <string name="back"><![CDATA[<-- BACK]]></string>
+    <string name="back"><![CDATA[<— BACK]]></string>
     <string name="artist_z_a">Artist Z-A</string>
     <string name="artist_a_z">Artist A-Z</string>
     <string name="title_z_a">Title Z-A</string>

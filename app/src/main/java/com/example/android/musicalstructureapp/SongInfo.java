@@ -11,9 +11,10 @@ import java.util.ArrayList;
 
 public class SongInfo extends AppCompatActivity {
 
-    private ArrayList<Song> songs;
-    private int position;
-    private int listSize;
+    public ArrayList<Song> songs;
+    public int position;
+    public int listSize;
+    public int sorting;
     private TextView artist;
     private TextView title;
 
@@ -25,6 +26,7 @@ public class SongInfo extends AppCompatActivity {
         songs =  getIntent().getParcelableArrayListExtra("songs");
         position = getIntent().getExtras().getInt("position");
         listSize = getIntent().getExtras().getInt("listLength");
+        sorting = getIntent().getExtras().getInt("sorting");
         artist = findViewById(R.id.artist);
         title = findViewById(R.id.title);
         TextView previous = findViewById(R.id.previous);
@@ -32,6 +34,7 @@ public class SongInfo extends AppCompatActivity {
         Button back = findViewById(R.id.back);
         display();
 
+        // Set onClickListener for next and previous, change the position to display next or previous song from the list
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,15 +57,19 @@ public class SongInfo extends AppCompatActivity {
             }
         });
 
+        // Go back to the MainActivity
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SongInfo.this, MainActivity.class);
+                // Keep the info how the list was sorted, before going to this activity
+                intent.putExtra("sort", sorting);
                 startActivity(intent);
             }
         });
     }
 
+    // Display proper artist and title
     public void display() {
         Song currentSong = songs.get(position);
         artist.setText(currentSong.getArtist());

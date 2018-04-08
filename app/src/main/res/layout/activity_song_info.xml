@@ -11,8 +11,8 @@
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/back"
-        android:background="@color/colorAccentLight"/>
+        android:background="@color/colorAccentLight"
+        android:text="@string/back" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,14 +26,15 @@
             android:gravity="center_vertical"
             android:text="@string/previous"
             android:textColor="@color/colorAccentLight"
-            android:textSize="30sp" />
+            android:textSize="@dimen/text_30" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
+            android:contentDescription="@string/music_note"
             android:src="@drawable/ic_music_note_black"
-            android:contentDescription="@string/music_note" />
+            tools:ignore="RelativeOverlap" />
 
         <TextView
             android:id="@+id/next"
@@ -43,34 +44,31 @@
             android:gravity="center_vertical"
             android:text="@string/next"
             android:textColor="@color/colorAccentLight"
-            android:textSize="30sp"
-            tools:ignore="RelativeOverlap" />
+            android:textSize="@dimen/text_30" />
 
     </RelativeLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
-        android:layout_weight="1"
         android:layout_marginLeft="@dimen/sm_8"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/artist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/text_20"
             android:textStyle="italic"
-            android:textSize="20sp"
             tools:text="artist" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="@dimen/text_30"
             tools:text="title" />
-
 
     </LinearLayout>
 
@@ -80,24 +78,24 @@
         android:gravity="center">
 
         <ImageButton
-            android:src="@drawable/ic_fast_rewind_black_24dp"
             style="@style/button_style"
-            android:contentDescription="@string/fast_rewind" />
+            android:contentDescription="@string/fast_rewind"
+            android:src="@drawable/ic_fast_rewind_black_24dp" />
 
         <ImageButton
-            android:src="@drawable/ic_pause_black_24dp"
             style="@style/button_style"
-            android:contentDescription="@string/pause" />
+            android:contentDescription="@string/pause"
+            android:src="@drawable/ic_pause_black_24dp" />
 
         <ImageButton
-            android:src="@drawable/ic_play_arrow_black_24dp"
             style="@style/button_style"
-            android:contentDescription="@string/play" />
+            android:contentDescription="@string/play"
+            android:src="@drawable/ic_play_arrow_black_24dp" />
 
         <ImageButton
-            android:src="@drawable/ic_fast_forward_black_24dp"
             style="@style/button_style"
-            android:contentDescription="@string/fast_forward" />
+            android:contentDescription="@string/fast_forward"
+            android:src="@drawable/ic_fast_forward_black_24dp" />
 
     </LinearLayout>
 

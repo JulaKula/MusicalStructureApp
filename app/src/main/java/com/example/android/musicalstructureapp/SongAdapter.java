@@ -11,13 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Jula-Kula on 23/03/2018
- */
-
 public class SongAdapter extends ArrayAdapter<Song>{
 
-    public SongAdapter(Context context, ArrayList<Song> songs){
+    private SongAdapter(Context context, ArrayList<Song> songs){
         super(context, 0, songs);
     }
     @NonNull
@@ -32,18 +28,11 @@ public class SongAdapter extends ArrayAdapter<Song>{
         }
 
         Song currentSong = getItem(position);
-
         TextView artist = songInfoView.findViewById(R.id.artist);
-
         artist.setText(currentSong.getArtist());
-
         TextView title = songInfoView.findViewById(R.id.title);
-
         title.setText(currentSong.getTitle());
-
 
         return songInfoView;
     }
-
-
 }

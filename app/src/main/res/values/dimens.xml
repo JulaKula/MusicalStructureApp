@@ -6,5 +6,6 @@
     <dimen name="mid_12">12dp</dimen>
     <dimen name="sm_8">8dp</dimen>
     <dimen name="text_16">16sp</dimen>
-
+    <dimen name="text_30">30sp</dimen>
+    <dimen name="text_20">20sp</dimen>
 </resources>
