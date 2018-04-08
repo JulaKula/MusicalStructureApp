@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class SongAdapter extends ArrayAdapter<Song>{
 
-    private SongAdapter(Context context, ArrayList<Song> songs){
+    public SongAdapter(Context context, ArrayList<Song> songs){
         super(context, 0, songs);
     }
     @NonNull
